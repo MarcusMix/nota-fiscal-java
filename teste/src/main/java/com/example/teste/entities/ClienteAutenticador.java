@@ -13,15 +13,15 @@ public class ClienteAutenticador {
     private String id;
 
     private String username;
-    private String password;
+    private String passwordHash;
 
     public ClienteAutenticador() {
     }
 
-    public ClienteAutenticador(String id, String username, String password) {
+    public ClienteAutenticador(String id, String username, String passwordHash) {
         this.id = id;
         this.username = username;
-        this.password = password;
+        this.passwordHash = passwordHash;
     }
 
     public String getId() {
@@ -41,11 +41,11 @@ public class ClienteAutenticador {
     }
 
     public String getPassword() {
-        return password;
+        return passwordHash;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
 }

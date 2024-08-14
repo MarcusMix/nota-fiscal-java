@@ -22,6 +22,10 @@ public class Cliente {
     @JoinColumn(name = "endereco_id", referencedColumnName = "id")
     private Endereco endereco;
 
+    @OneToOne(cascade =  CascadeType.ALL)
+    @JoinColumn(name = "cliente_auth_id")
+    private ClienteAutenticador clienteAutenticador;
+
     public Endereco getEndereco() {
         return endereco;
     }
@@ -54,5 +58,13 @@ public class Cliente {
     }
 
     public Cliente() {
+    }
+
+    public ClienteAutenticador getClienteAutenticador() {
+        return clienteAutenticador;
+    }
+    
+    public void setClienteAutenticador(ClienteAutenticador clienteAutenticador) {
+        this.clienteAutenticador = clienteAutenticador;
     }
 }

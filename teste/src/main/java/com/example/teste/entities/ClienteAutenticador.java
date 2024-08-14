@@ -1,5 +1,9 @@
 package com.example.teste.entities;
 
+import java.security.NoSuchAlgorithmException;
+
+import com.example.teste.util.Hashing;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -44,8 +48,8 @@ public class ClienteAutenticador {
         return passwordHash;
     }
 
-    public void setPassword(String passwordHash) {
-        this.passwordHash = passwordHash;
+    public void setPassword(String passwordHash) throws NoSuchAlgorithmException {
+        this.passwordHash = Hashing.hash(passwordHash);
     }
 
 }

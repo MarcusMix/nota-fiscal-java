@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.teste.entities.Cliente;
 import com.example.teste.repository.ClienteRepository;
+import com.example.teste.util.ClienteMapper;
+import com.example.teste.util.ValidaEmail;
 
 @Service
 public class ClienteService {
@@ -15,8 +18,16 @@ public class ClienteService {
     @Autowired
     private ClienteRepository clienteRepository;
 
-    public Cliente criarCliente(Cliente cliente) {
-        return clienteRepository.save(cliente);
+    // mudar para ClienteDTO
+    public ResponseEntity <Cliente> criarCliente(Cliente cliente) {
+        if(!ValidaEmail.validarCaracterArroba(cliente.getEmail())) {
+            return ResponseEntity.status(422).build();
+        }
+
+        // Cliente cliente = ClienteMapper.toEntity(clienteDTO);
+
+        return ResponseEntity.status(200).build();
+
     }
     
     public List<Cliente> obterTodosClientes() {

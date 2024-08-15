@@ -1,5 +1,6 @@
 package com.example.teste.util;
 
+import com.example.teste.dto.ClienteAutenticadorDTO;
 import com.example.teste.dto.ClienteDTO;
 import com.example.teste.dto.EnderecoDTO;
 import com.example.teste.entities.Cliente;
@@ -13,7 +14,12 @@ public class ClienteMapper {
         enderecoDTO.setCep(cliente.getEndereco().getCep());
         enderecoDTO.setNumero(cliente.getEndereco().getNumero());
         enderecoDTO.setComplemento(cliente.getEndereco().getComplemento());
-        return new ClienteDTO(cliente.getId(), cliente.getNome(), cliente.getEmail(), enderecoDTO);
+
+        ClienteAutenticadorDTO clienteAutenticador = new ClienteAutenticadorDTO();
+        clienteAutenticador.setUsername(cliente.getClienteAutenticador().getUsername());
+        clienteAutenticador.setPassword(cliente.getClienteAutenticador().getPassword());
+
+        return new ClienteDTO(cliente.getId(), cliente.getNome(), cliente.getEmail(), enderecoDTO, clienteAutenticador);
     }
  
     public static Cliente toEntity(ClienteDTO clienteDTO) {

@@ -30,6 +30,4 @@ public class ClienteAutenticadorDTO {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    
 }

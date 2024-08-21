@@ -10,7 +10,11 @@ import org.springframework.stereotype.Service;
 import com.example.teste.entities.Cliente;
 import com.example.teste.repository.ClienteRepository;
 import com.example.teste.util.ClienteMapper;
+import com.example.teste.util.Hashing;
 import com.example.teste.util.ValidaEmail;
+
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Service
 public class ClienteService {
@@ -19,14 +23,28 @@ public class ClienteService {
     private ClienteRepository clienteRepository;
 
     // mudar para ClienteDTO
-    public ResponseEntity <Cliente> criarCliente(Cliente cliente) {
+    public ResponseEntity <Cliente> criarCliente(Cliente cliente, HttpServletResponse response) {
         if(!ValidaEmail.validarCaracterArroba(cliente.getEmail())) {
             return ResponseEntity.status(422).build();
         }
 
-        // Cliente cliente = ClienteMapper.toEntity(clienteDTO);
+        try {
+            String id_cliente = Hashing.hash(cliente.getId().toString());
+            Cookie session_cookie = new Cookie("id_cliente", id_cliente);
+            session_cookie.setHttpOnly(true);
+            session_cookie.setSecure(true);
+            session_cookie.setMaxAge(60 * 60);
+            session_cookie.setPath("/");
 
-        return ResponseEntity.status(200).build();
+            response.addCookie(session_cookie);
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.getMessage();
+        }
+
+        // Cliente cliente = ClienteMapper.toEntity(clienteDTO);
+        clienteRepository.save(cliente);
+        return ResponseEntity.ok(cliente);
 
     }
     

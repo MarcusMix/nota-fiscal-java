@@ -52,5 +52,38 @@ public class ValidaEmailTest {
 
      }
 
+     @Test
+     void testEmailValido() {
+        assertTrue(ValidaEmail.isValid(clienteDTO.getEmail()));
+     }
 
+     @Test
+     void testEmailInvalidoSemArrroba() {
+        assertFalse(ValidaEmail.isValid(emailInvalido));
+     }
+
+     @Test
+     void testEmailInvalidoDominio() {
+        assertFalse(ValidaEmail.isValid("marcus@.com"));
+     }
+
+     @Test
+     void testEmailInvalidoTLD() {
+        assertFalse(ValidaEmail.isValid("marcus@senac"));
+     }
+
+     @Test
+     void testEmailInvalidoCaracterEspecial() {
+        assertFalse(ValidaEmail.isValid("marcus@prof!senac.com"));
+     }
+
+     @Test
+     void testValidoSubDominio() {
+        assertTrue(ValidaEmail.isValid("marcus@123.com"));
+     }
+
+     @Test
+     void testEmailInvalidPontos() {
+        assertFalse(ValidaEmail.isValid("marcus..senac@alunos.com.br"))
+     }
 }

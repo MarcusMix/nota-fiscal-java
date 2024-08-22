@@ -6,7 +6,7 @@ public class ValidaEmail {
         return input != null && input.contains("@");
     }
 
-    public boolean isValid(String email) {
+    public static boolean isValid(String email) {
         if (email == null) {
             return false;
         }
